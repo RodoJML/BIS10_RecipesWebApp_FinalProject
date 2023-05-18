@@ -1,0 +1,182 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:head>
+        <title>Mantenimiento de Recetas</title>
+    </h:head>
+
+    <h:body style = "background-color:lightgray">
+
+        <p:outputLabel><h1>Mantenimiento de Recetas</h1></p:outputLabel>
+
+        <p>
+            <p:button value="Bienvenido: #{signInController.userTO.name} #{signInController.userTO.lastName}" icon = "pi pi-user" styleClass="ui-button-secondary" /> &nbsp;
+            <p:button value="Recetas disponibles: ..." icon = "pi pi-spin pi-spinner" /> &nbsp;
+            <p:button value="Ingredientes disponibles: #{addRecipeController.ingredientService.ingredientsCount()}" icon = "pi pi-chart-bar" styleClass="ui-button-secondary" />
+        </p><!-- comment -->
+
+        <p:progressBar id="progressBarIndeterminate" style="height:6px" mode="indeterminate"/>
+        
+        <h:form id="formTabMenu">
+
+            <p:growl id="messagesRecipeInventory" showDetail="false" />
+
+
+            <p:tabMenu activeIndex="#{param.i}">
+
+                <p:menuitem value = "Inicio" outcome = "welcome" icon = "pi pi-fw pi-home" >
+                    <f:param name = "i" value = "0"/>
+                </p:menuitem>
+
+                <p:menuitem value = "Mantenimiento" outcome = "maintenance" icon = "pi pi-cog">
+                    <f:param name = "i" value = "1"/>
+                </p:menuitem>
+
+                <p:menuitem value = "Cerrar Sesión" outcome = "index" icon = "pi pi-sign-out">
+                    <f:param name = "i" value = "2"/>
+                </p:menuitem>
+
+            </p:tabMenu>
+
+        </h:form>
+
+
+        <div class="card crud-demo">
+
+            <h:form id="form">
+                <p:growl id="messages" showDetail="true" />
+
+
+                <p:dataTable id="dt-products" widgetVar="dtProducts" var="product" value="#{crudRecipesController.recipes}"
+                             reflow="true" styleClass="products-table" selection="#{crudRecipesController.selectedRecipes}"
+                             paginator="true" rows="15" rowSelectMode="add" paginatorPosition="bottom">
+
+
+                    <p:column headerText="Autor" sortBy="#{product.userName}" filterBy="#{product.userName}">
+                        <h:outputText value="#{product.userName}" />
+                    </p:column><!-- comment -->
+
+                    <p:column headerText="Receta" sortBy="#{product.name}" filterBy="#{product.name}">
+                        <h:outputText value="#{product.name}" />
+                    </p:column>
+
+                    <p:column headerText="Minútos" sortBy="#{product.duration}" filterBy="#{product.duration}">
+                        <h:outputText value="#{product.duration}" />
+                    </p:column>
+
+                    <p:column headerText="Ingredientes" sortBy="#{product.ingredients.size()}" filterBy="#{product.ingredients.size()}">
+                        <h:outputText value="#{product.ingredients.size()}" />
+                    </p:column>
+
+                    <p:column headerText="Pasos" sortBy="#{product.steps.size()}" filterBy="#{product.steps.size()}">
+                        <h:outputText value="#{product.steps.size()}" />
+                    </p:column>
+
+                    <p:column headerText="Activa">
+                        <p:toggleSwitch value="#{product.status1}" disabled="#{product.idUser != signInController.userTO.id and signInController.userTO.name != 'admin'}">
+                            <p:ajax listener="#{crudRecipesController.setStatus(product)}"/> 
+                        </p:toggleSwitch>
+                    </p:column>
+
+
+                    <p:column headerText="Editar">
+
+                        <p:commandButton icon="pi pi-pencil" update=":dialogs:manage-product-content"
+                                         oncomplete="PF('manageProductDialog').show()"
+                                         styleClass="edit-button rounded-button ui-button-success" process="@this" 
+                                         disabled="#{product.idUser != signInController.userTO.id and signInController.userTO.name != 'admin'}" 
+                                         actionListener= "#{crudRecipesController.loadIngredients(product)}">
+                            <f:setPropertyActionListener value="#{product}" target="#{crudRecipesController.selectedRecipe}" />
+                            <p:resetInput target=":dialogs:manage-product-content" />
+                        </p:commandButton>
+
+                    </p:column>
+
+                </p:dataTable>
+            </h:form>
+
+            <h:form id="dialogs">
+                <p:dialog header="Editar detalles de la receta" showEffect="fade" modal="true" widgetVar="manageProductDialog"
+                          responsive="true">
+                    
+                    <p:growl id="messagesUpdates" showDetail="true" />
+
+                    <p:outputPanel id="manage-product-content" class="ui-fluid">
+
+                        <p:outputPanel rendered="#{not empty crudRecipesController.selectedRecipe}">
+
+                            <p:outputLabel>Agregar o quitar ingredientes </p:outputLabel><!-- comment -->
+                            <br/><br/><br/>
+                            <p:selectManyMenu id="advanced" value="#{crudRecipesController.selectedIngredients}"
+                                              var="c" showCheckbox="true" styleClass="manymenu-advanced" required="true">
+
+                                <f:selectItems value="#{crudRecipesController.ingredients}" var="ingredients" itemLabel="#{ingredients.ingredientName}"
+                                               itemValue="#{ingredients}" />
+
+                                <p:column>
+                                    <h:outputText value="#{c.ingredientName}"/>
+                                </p:column>
+
+                            </p:selectManyMenu>
+
+                            &nbsp;&nbsp;
+
+                            <div class="field col-12 md:col-4">
+                                <p:outputLabel for="@next" value="Ajustar cantidad de pasos: "/>
+                                <p:spinner id="horizontalAfter1" value="#{crudRecipesController.stepsSize}" buttons="horizontal-after"
+                                           upButtonStyleClass="ui-button-success" downButtonStyleClass="ui-button-danger" required="true"/>
+                            </div>
+
+                        </p:outputPanel>
+                    </p:outputPanel>
+
+
+
+                    <f:facet name="footer">
+                        <p:outputLabel> &nbsp; <b>Guardar</b> : &nbsp; </p:outputLabel>
+                        <p:commandButton value="Ingredientes" icon="pi pi-save" actionListener="#{crudRecipesController.saveIngredients()}"
+                                         update="manage-product-content " process="manage-product-content @this"/>
+                        
+                        <p:commandButton value="Pasos" icon="pi pi-save" actionListener="#{crudRecipesController.saveSteps()}"
+                                         update="manage-product-content " process="manage-product-content @this"/>
+                        
+                        <p:commandButton value="Terminar" icon="pi pi-check-circle" onclick="PF('manageProductDialog').hide()"
+                                         class="ui-button-secondary" type="button" />
+                        
+                    </f:facet>
+                    
+                </p:dialog>
+
+
+                <p:confirmDialog widgetVar="deleteProductDialog" showEffect="fade" width="300"
+                                 message="Delete the product?" header="Confirm" severity="warn">
+                    <p:commandButton value="Yes" icon="pi pi-check" actionListener="#{crudView.deleteProduct}"
+                                     process="@this" update=""
+                                     oncomplete="PF('deleteProductDialog').hide()" />
+                    <p:commandButton value="No" type="button" styleClass="ui-button-secondary" icon="pi pi-times"
+                                     onclick="PF('deleteProductDialog').hide()" />
+                </p:confirmDialog>
+
+
+                <p:confirmDialog global="true" showEffect="fade" width="300">
+                    <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
+                    <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no ui-button-secondary"
+                                     icon="pi pi-times" />
+                </p:confirmDialog>
+            </h:form>
+        </div>
+
+        <center>
+            Ulatina, 2022
+            <br/> <br/>
+            Gabriel Camacho, Christopher Lin, Rodolfo Meneses
+        </center>
+
+    </h:body>
+
+</html>
+

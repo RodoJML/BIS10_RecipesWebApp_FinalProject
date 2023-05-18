@@ -1,0 +1,521 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+
+        <title>Recetas</title>
+
+    </h:head>
+
+    <h:body style = "background-color:lightgray">
+
+        <p:outputLabel><h1>Plataforma de Recetas</h1></p:outputLabel>
+
+        <p>
+            <p:button value="Bienvenido: #{signInController.userTO.name} #{signInController.userTO.lastName}" icon = "pi pi-user" styleClass="ui-button-secondary" /> &nbsp;
+            <p:button value="Recetas disponibles: #{addRecipeController.recipeService.countRecipes()}" icon = "pi pi-chart-bar" styleClass="ui-button-secondary" /> &nbsp;
+            <p:button value="Ingredientes disponibles: #{addRecipeController.ingredientService.ingredientsCount()}" icon = "pi pi-chart-bar" styleClass="ui-button-secondary" />
+
+        </p>
+
+        <h:form>
+
+            <p:tabMenu activeIndex="#{param.i}">
+
+                <p:menuitem value = "Inicio" outcome = "welcome" icon = "pi pi-fw pi-home" >
+                    <f:param name = "i" value = "0"/>
+                </p:menuitem> 
+
+                <p:menuitem value = "Mantenimiento" outcome = "maintenance" icon = "pi pi-cog">
+                    <f:param name = "i" value = "1"/>
+                </p:menuitem>
+
+                <p:menuitem value = "Cerrar Sesión" outcome = "index" icon = "pi pi-sign-out">
+                    <f:param name = "i" value = "2"/>
+                </p:menuitem>
+
+            </p:tabMenu>
+
+        </h:form>
+
+
+
+
+        <h:form>
+
+            <p:toolbar>
+
+                <p:toolbarGroup>
+
+                    <p:commandButton value = "Nueva Receta" icon = "pi pi-plus" actionListener="#{addRecipeController.openNew()}"
+                                     update = ":modalAddRecipe:manage-recipe-content" oncomplete = "PF('addRecipeDialog').show()" 
+                                     styleClass = "ui-button-success" style = "margin-right: .5rem">
+
+                        <p:resetInput target=":modalAddRecipe:manage-recipe-content"/>
+
+                    </p:commandButton>
+
+                </p:toolbarGroup>
+
+            </p:toolbar>
+
+
+        </h:form>
+
+
+
+
+        <div class="card product">
+
+            <h:form id="formAllRecipes">
+
+                <p:dataView id = "allRecipes" var="recipes" value="#{dataGridView.recipes}" rows="12" paginator="true"
+                            rowsPerPageTemplate="6,12,16"
+                            paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                            gridIcon="pi pi-th-large" listIcon="pi pi-bars">
+
+                    <p:dataViewGridItem>
+                        <center>
+
+                            <div class="product-grid-item card border-1">
+
+                                <br/>
+
+
+
+                                <div class="product-grid-item-content">
+
+                                    <p:graphicImage name="#{recipes.fileName}" library="recipes" width="275px" height="275px"/>
+
+                                    <div class="product-name"><h2>#{recipes.name}</h2></div>
+
+                                    <div class="product-name"><b>Autor:</b> #{recipes.userName}</div>
+
+                                    <div class="product-name"><b>Descripción:</b> #{recipes.description} </div>
+
+                                    <br/>
+
+                                    <p:panelGrid columns="1">
+
+                                        <i class="pi pi-clock product-category-icon"/><span
+                                            class="product-category"> Duración  
+                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:
+                                            #{recipes.duration} min </span>
+
+                                        <br/>
+
+                                        <i class="pi pi-check-circle product-category-icon"/><span
+                                            class="product-category"> Pasos  
+                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:
+                                            #{recipes.steps.size()} total </span>
+
+                                        <br/>
+
+                                        <i class="pi pi-palette product-category-icon"/><span
+                                            class="product-category"> Ingredientes : #{recipes.ingredients.size()} total </span>
+
+                                    </p:panelGrid>
+
+                                    <br/>
+
+                                </div>
+
+                                <div class="product-grid-item-bottom">
+
+                                    <p:commandButton value="Abrir" icon="pi pi-folder-open" update=":modalEditRecipe:edit-recipe-content"
+                                                     oncomplete="PF('editRecipeDialog').show()" styleClass="ui-button-raised ui-button-secondary" process="@this">
+
+                                        <f:setPropertyActionListener value="#{recipes}" target="#{dataGridView.selectedRecipe}" />
+                                        <p:resetInput target=":modalEditRecipe:edit-recipe-content" />
+
+                                    </p:commandButton>
+
+                                    <br/><br/>
+
+                                </div>
+
+                            </div>
+
+                        </center>
+                    </p:dataViewGridItem>
+
+
+                    <p:dataViewListItem>
+
+                        <center>
+
+                            <div class="product-list-item">
+
+                                <br/>
+
+                                <p:graphicImage name="#{recipes.fileName}" library="recipes" width="275px" height="275px"/>
+
+                                <div class="product-list-detail">
+
+                                    <div class="product-name"><h2>#{recipes.name}</h2></div>
+
+                                    <div class="product-name"><b>Autor:</b> #{recipes.userName}</div>
+
+                                    <div class="product-name"><b>Descripción:</b> #{recipes.description} </div>
+
+                                    <br/>
+
+                                    <p:panelGrid columns="1">
+
+                                        <i class="pi pi-clock product-category-icon"/><span
+                                            class="product-category"> Duración  
+                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:
+                                            #{recipes.duration} min </span>
+
+                                        <br/>
+
+                                        <i class="pi pi-check-circle product-category-icon"/><span
+                                            class="product-category"> Pasos  
+                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:
+                                            #{recipes.steps.size()} total </span>
+
+                                        <br/>
+
+                                        <i class="pi pi-palette product-category-icon"/><span
+                                            class="product-category"> Ingredientes : #{recipes.ingredients.size()} total </span>
+
+                                    </p:panelGrid>
+
+                                    <br/>
+
+                                </div>
+
+                                <div class="product-list-action">
+
+                                    <p:commandButton value="Abrir" icon="pi pi-folder-open" update=":modalEditRecipe:edit-recipe-content"
+                                                     oncomplete="PF('editRecipeDialog').show()" styleClass="ui-button-raised ui-button-secondary" process="@this">
+
+                                        <f:setPropertyActionListener value="#{recipes}" target="#{dataGridView.selectedRecipe}" />
+                                        <p:resetInput target=":modalEditRecipe:edit-recipe-content" />
+
+                                    </p:commandButton>
+
+                                    <br/><br/>
+
+                                </div>
+
+                            </div>
+
+                        </center>
+
+                    </p:dataViewListItem>
+
+
+
+                </p:dataView> 
+            </h:form>
+
+        </div>
+
+
+        <h:form id ="modalEditRecipe">
+
+            <p:growl id="messagesEditRecipeModal" showDetail="true" />
+
+            <p:dialog header="Editar Receta" showEffect="fade" modal="true" widgetVar="editRecipeDialog"
+                      responsive="true" width="60%" >
+
+                <p:outputPanel id="edit-recipe-content" class="ui-fluid">
+
+                    <p:outputPanel rendered="#{not empty dataGridView.selectedRecipe}">
+
+                        <div class="field">
+                            <i class="pi pi-user"></i>
+                            <p:outputLabel>     
+                                <b>Autor: </b>
+                                #{dataGridView.selectedRecipe.userName}
+                            </p:outputLabel>
+
+                            &nbsp;&nbsp;
+
+                            <p:tag styleClass="mr-2" icon="pi pi-exclamation-triangle" severity="warning" value="Edición disponible solo para autor"></p:tag>
+                        </div>
+
+                        <br/>
+
+                        <p:fileUpload value="#{dataGridView.fileUploadView.file}" mode="simple" skinSimple="true" auto="true"
+                                      process="@this" update="messagesEditRecipeModal" sizeLimit="100000000"
+                                      listener="#{dataGridView.fileUploadView.upload}" disabled="#{dataGridView.selectedRecipe.idUser != signInController.userTO.id and signInController.userTO.name != 'admin'}"/>
+
+                        <br/> <br/>
+
+                        <div class="field">
+                            <p:outputLabel>Nombre de la receta</p:outputLabel>
+                            <p:inputText id="name1" value="#{dataGridView.selectedRecipe.name}" disabled="#{dataGridView.selectedRecipe.idUser != signInController.userTO.id and signInController.userTO.name != 'admin'}"
+                                         required="true" requiredMessage = "Es necesario poner nombre a la receta"/>
+                        </div>
+
+                        &nbsp;&nbsp;
+
+                        <h:panelGrid columns="1" style="margin-bottom: 10px">
+                            <p:outputLabel>Duración en minutos: </p:outputLabel>
+                            <p:inputText id="txt1" value="#{dataGridView.selectedRecipe.duration}" disabled="#{dataGridView.selectedRecipe.idUser != signInController.userTO.id and signInController.userTO.name != 'admin'}"/>
+                            <p:slider for="txt1" range="false"/>
+                        </h:panelGrid><!-- comment -->
+
+                        &nbsp;&nbsp;
+
+                        <div class="field">
+                            <p:outputLabel>Agregue una breve descripción de la receta: </p:outputLabel>
+                            <p:inputText id="description1" value="#{dataGridView.selectedRecipe.description}" disabled="#{dataGridView.selectedRecipe.idUser != signInController.userTO.id and signInController.userTO.name != 'admin'}"/>
+                        </div>
+
+                        &nbsp;&nbsp;
+
+                        <div class="card">
+
+                            <p:dataTable id="products3" widgetVar="products3" var="product3" value="#{dataGridView.selectedRecipe.steps}"
+                                         editable="true" scrollable="true" scrollHeight="200">
+
+                                <p:column headerText="Paso" >
+                                    <h:outputText value="#{product3.stepNumner}"/>
+                                </p:column>
+
+                                <p:column headerText="Descripción" >
+                                    <p:cellEditor>
+                                        <f:facet name="output"><h:outputText value="#{product3.stepDescription}"/></f:facet>
+                                        <f:facet name="input"><p:inputText value="#{product3.stepDescription}" style="width:100%"
+                                                                           label="description" disabled="#{dataGridView.selectedRecipe.idUser != signInController.userTO.id and signInController.userTO.name != 'admin'}"/></f:facet>
+                                    </p:cellEditor>
+                                </p:column>
+
+                                <p:column style="width:6rem">
+                                    <p:rowEditor/>
+                                </p:column>
+
+                            </p:dataTable>
+
+
+                            &nbsp;&nbsp;
+
+
+                            <p:dataTable id="products4" widgetVar="products4" var="product4" value="#{dataGridView.selectedRecipe.ingredients}"
+                                         editable="true" scrollable="true" scrollHeight="200">
+
+                                <p:column headerText="Ingrediente">
+                                    <h:outputText value="#{product4.ingredientName}"/>
+                                </p:column>
+
+
+                                <p:column headerText="Cantidad">
+                                    <p:spinner id="horizontal" value="#{product4.quantity}" buttons="horizontal" disabled="#{dataGridView.selectedRecipe.idUser != signInController.userTO.id and signInController.userTO.name != 'admin'}"/>
+                                </p:column>
+
+                            </p:dataTable>
+
+                        </div><!-- comment -->
+
+
+
+                    </p:outputPanel>
+
+                    <p:commandButton value="Guardar cambios" icon="pi pi-save" actionListener="#{dataGridView.saveEdits()}"
+                                     update="edit-recipe-content" process="edit-recipe-content @this" styleClass="ui-button-success" 
+                                     disabled="#{dataGridView.selectedRecipe.idUser != signInController.userTO.id and signInController.userTO.name != 'admin'}"/>
+
+                </p:outputPanel>          
+
+            </p:dialog>
+
+        </h:form>
+
+
+
+        <h:form id="modalAddRecipe">
+
+            <p:dialog header="Agregar una nueva receta" showEffect="fade" modal="true" widgetVar="addRecipeDialog"
+                      responsive="true">
+
+
+                <p:outputPanel id="manage-recipe-content" class="ui-fluid">
+
+                    <p:outputPanel rendered="#{not empty addRecipeController.selectedRecipe}">
+
+                        <div class="field">
+                            <i class="pi pi-user"></i>
+                            <p:outputLabel> 
+                                <b>Registro bajo usuario: </b>
+                                #{signInController.userTO.name} 
+                                #{signInController.userTO.lastName} |
+                                ID #{addRecipeController.selectedRecipe.idUser = signInController.userTO.id}
+                            </p:outputLabel>
+
+                        </div>
+
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+
+                        <div class="field">
+                            <p:outputLabel>Nombre de la receta</p:outputLabel>
+                            <p:inputText id="name" value="#{addRecipeController.selectedRecipe.name}" 
+                                         required="true" requiredMessage = "Es necesario poner nombre a la receta"/>
+                        </div>
+
+                        &nbsp;&nbsp;
+
+                        <h:panelGrid columns="1" style="margin-bottom: 10px">
+                            <p:outputLabel>Duración en minutos: </p:outputLabel>
+                            <p:inputText id="txt" value="#{addRecipeController.selectedRecipe.duration}"/>
+                            <p:slider for="txt" range="false"/>
+                        </h:panelGrid><!-- comment -->
+
+                        &nbsp;&nbsp;
+
+                        <div class="field">
+                            <p:outputLabel>Agregue una breve descripción de la receta: </p:outputLabel>
+                            <p:inputText id="description" value="#{addRecipeController.selectedRecipe.description}"/>
+                        </div>
+
+                        &nbsp;&nbsp;
+
+                        <div class="field col-12 md:col-4">
+                            <p:outputLabel for="@next" value="Cantidad de pasos en la receta: "/>
+                            <p:spinner id="horizontalAfter1" value="#{addRecipeController.stepsSize}" buttons="horizontal-after"
+                                       upButtonStyleClass="ui-button-success" downButtonStyleClass="ui-button-danger" required="true"/>
+                        </div>
+
+                        &nbsp;&nbsp;
+
+
+                        <p:selectManyMenu id="advanced" value="#{addRecipeController.selectedIngredients}"
+                                          var="c" showCheckbox="true" styleClass="manymenu-advanced" required="true">
+                            <f:selectItems value="#{addRecipeController.ingredients}" var="ingredients" itemLabel="#{ingredients.ingredientName}"
+                                           itemValue="#{ingredients}" />
+
+                            <p:column>
+                                <h:outputText value="#{c.ingredientName}"/>
+                            </p:column>
+
+                        </p:selectManyMenu>
+
+                        &nbsp;
+
+                    </p:outputPanel>
+
+                </p:outputPanel>
+
+
+
+
+                <f:facet name="footer">
+
+
+
+                    <p:commandButton value="Guardar y continuar" icon="pi pi-arrow-right" actionListener="#{addRecipeController.save()}"
+                                     update="manage-recipe-content :modalAddRecipeDetails:manage-recipeDetails-content" process="manage-recipe-content @this"/>
+
+                    <p:commandButton value="Cancel" icon="pi pi-times" actionListener="#{addRecipeController.openNew()}" 
+                                     onclick="PF('addRecipeDialog').hide()" class="ui-button-secondary" type="button" />
+
+                </f:facet>
+
+
+
+            </p:dialog>
+
+        </h:form>
+
+
+
+        <h:form id="modalAddRecipeDetails">
+
+            <p:growl id="msgs" showDetail="true" />                
+
+            <p:dialog header="Agregar detalles de la receta" showEffect="fade" modal="true" widgetVar="addRecipeDetailsDialog"
+                      responsive="true" minHeight="40" width="60%">
+
+                <p:outputPanel id="manage-recipeDetails-content" class="ui-fluid">
+
+                    <p:outputPanel rendered="#{not empty addRecipeController.selectedRecipe}">
+
+                        <div class="field">
+                            <i class="pi pi-list"></i>
+                            <p:outputLabel> #{addRecipeController.selectedRecipe.name} </p:outputLabel>
+                        </div>
+
+                        &nbsp;&nbsp;
+
+                        <div class="card">
+
+                            <p:dataTable id="products1" widgetVar="products1" var="product" value="#{addRecipeController.selectedRecipe.steps}"
+                                         editable="true" scrollable="true" scrollHeight="200">
+
+                                <p:column headerText="Paso" style="width:20%">
+                                    <h:outputText value="#{product.stepNumner}"/>
+                                </p:column>
+
+                                <p:column headerText="Descripción">
+                                    <p:cellEditor>
+                                        <f:facet name="output"><h:outputText value="#{product.stepDescription}"/></f:facet>
+                                        <f:facet name="input"><p:inputText value="#{product.stepDescription}" style="width:100%"
+                                                                           label="description"/></f:facet>
+                                    </p:cellEditor>
+                                </p:column>
+
+                                <p:column style="width:6rem">
+                                    <p:rowEditor/>
+                                </p:column>
+
+                            </p:dataTable>
+
+
+                            &nbsp;&nbsp;
+
+
+                            <p:dataTable id="products2" widgetVar="products2" var="product2" value="#{addRecipeController.selectedRecipe.ingredients}"
+                                         editable="true" scrollable="true" scrollHeight="200">
+
+                                <p:column headerText="Ingrediente">
+                                    <h:outputText value="#{product2.ingredientName}"/>
+                                </p:column>
+
+
+                                <p:column headerText="Cantidad" >
+                                    <p:spinner id="horizontal" value="#{product2.quantity}" buttons="horizontal" />
+                                </p:column>
+
+                            </p:dataTable>
+
+                        </div><!-- comment -->
+
+                        &nbsp;&nbsp;
+
+
+
+                        <p:commandButton value="Guardar" icon="pi pi-save" actionListener="#{addRecipeController.saveRecipeDetails()}"
+                                         update="manage-recipeDetails-content" process="manage-recipeDetails-content @this" styleClass="ui-button-success"/>
+
+                        <p:commandButton value="Cancel" icon="pi pi-times" actionListener="#{addRecipeController.openNew()}" 
+                                         onclick="PF('addRecipeDetailsDialog').hide()" class="ui-button-secondary" type="button" styleClass="ui-button-danger"/>
+
+
+
+                    </p:outputPanel>
+
+                </p:outputPanel>
+
+
+            </p:dialog>
+
+        </h:form>
+
+
+        <center>
+            <br/>
+            Ulatina, 2022
+            <br/> <br/>
+            Gabriel Camacho, Christopher Lin, Rodolfo Meneses
+        </center>
+
+
+    </h:body>
+
+</html>
+

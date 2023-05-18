@@ -1,0 +1,82 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:head>
+        <title>Recetas</title>
+    </h:head>
+
+    <h:body style = "background-color:lightgray">
+
+        <center>
+
+            <h:form id ="signUpd">
+                <p:growl id ="signUpNotification" showDetail = "true" life = "3000"/>
+
+                <img src="IMAGES/recetas.png" alt="recetas" width="150" height="150"> </img>
+
+                <p:outputLabel><h1>PLATAFORMA DE RECETAS</h1></p:outputLabel>
+                <p>Si aún no cuenta con su usuario, puede crearlo uno a continuación:</p>
+                <br/>
+
+                <p:outputLabel value="Nombre"/>
+                <span class="ui-float-label">
+                    <p:inputText id = "a" value="#{signUpController.newUser.name}" required = "yes"/>
+                </span>
+
+                <br/>
+
+                <p:outputLabel value="Apellido"/>
+                <span class="ui-float-label">
+                    <p:inputText id = "b" value="#{signUpController.newUser.lastName}" required = "yes"/>
+
+                </span>
+
+                <br/>
+
+                <p:outputLabel value="Edad"/>
+                <span class="ui-float-label">
+                    <p:inputText id = "c" value="#{signUpController.newUser.age}" required = "yes"/>
+                </span>
+
+                <br/>
+
+                <p:outputLabel value="Correo"/>
+                <span class="ui-float-label">
+                    <p:inputText id = "d" value="#{signUpController.newUser.email}" required = "yes"/>
+                </span>
+
+                <br/>
+
+                <p:outputLabel value="Contraseña"/> <br/>
+                <p:password id="e" value="#{signUpController.newUser.password}" required = "yes"/>
+
+                <br/>
+                <br/>
+
+                <p:commandButton value="Registrarse" actionListener ="#{signUpController.signUp()}">
+                </p:commandButton>
+
+                &nbsp;
+
+                <p:linkButton outcome="signin" value="Iniciar Sesión" style="margin-right:20px;">
+                    <f:param name="productId" value="10"/>
+                </p:linkButton>
+
+            </h:form>
+
+            <br>
+                <p>Ulatina, 2022</p>
+                <p>Gabriel Camacho, Christopher Lin, Rodolfo Meneses</p>
+            </br>
+
+
+        </center>
+
+    </h:body>
+
+</html>
+
