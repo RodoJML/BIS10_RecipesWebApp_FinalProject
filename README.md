@@ -2,15 +2,12 @@
 A website to CRUD recipes
 
 Project made using Java Web Stack technologies:
--Java Server Faces
 
--HTML
-
--mySQL
-
--Tomcat
-
--linux.
+    -Java Server Faces
+    -HTML
+    -mySQL
+    -Tomcat
+    -Linux
 
 Hosted on a linux1 server here:
 http://148.100.76.215:8080/BIS10_FinalProject
