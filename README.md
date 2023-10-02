@@ -11,3 +11,6 @@ user: rodojml@me.com password: '123'
 
 User interface made using Java Prime Faces
 https://www.primefaces.org/
+
+Datavase Entity Relation UML
+![BaseDatosUML](https://github.com/RodoJML/BIS10_RecipesWebApp_FinalProject/assets/63088555/69ede605-c74b-4a98-b2f1-96d485293dd7)
