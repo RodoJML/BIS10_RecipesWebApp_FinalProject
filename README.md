@@ -1,5 +1,6 @@
 # BIS10_RecipesProject
-A website to CRUD recipes
+A website to share food recipes, you can add, update or delete them. 
+Each recipe can hold several steps and ingredients, users can see others recipes (If set visible), but can only update their own.
 
 Project made using Java Web Stack technologies:
 
