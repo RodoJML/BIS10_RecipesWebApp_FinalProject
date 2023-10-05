@@ -155,6 +155,10 @@ Add permissions to the tomcat scripts
         sudo chmod +x /opt/tomcat/bin/startup.sh
         sudo chmod +x /opt/tomcat/bin/shutdown.sh
 
+⚠️ To make sure tomcat is running run this command
+
+        /opt/tomcat/bin/startup.sh
+
 ### Step 6
 Edit the server.xml
 
