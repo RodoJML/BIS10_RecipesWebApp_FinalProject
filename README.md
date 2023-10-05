@@ -163,6 +163,14 @@ Add permissions to the tomcat scripts
 
         /opt/tomcat/bin/startup.sh
 
+Now to start or step the service you can use:
+        
+        sudo systemctl enable tomcat.service
+        sudo systemctl start tomcat.service
+
+These two commands should run with no problems... 
+
+
 ### Step 6
 Edit the server.xml
 
