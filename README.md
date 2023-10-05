@@ -69,4 +69,17 @@ Install wget if this is not preinstalled on the server.
 
         sudo dnf install wget
         
+### Step 4
+Download and Install Tomcat (https://tomcat.apache.org/).<br/>
+You might need to go to their wbsite and get the latest "tar.gz" link address. 
+
+        wget https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.70/bin/apache-tomcat-9.0.70.tar.gz
+
+### Step 5
+Extract downloaded file and then move it to user created for sec reasons (Step 2).
+
+        tar xzf apache-tomcat-9.0.70.tar.gz
+        sudo mv apache-tomcat-9.0.70/* /opt/tomcat/
+
+### Step 6
         
