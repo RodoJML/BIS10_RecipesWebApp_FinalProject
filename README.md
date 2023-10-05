@@ -127,7 +127,14 @@ Move your project .war file to "/opt/tomcat/webapps" folder
 ### Step 4
 Create a Tomcat "start" script 
 
+To configure the file, you first need to find the JAVA_HOME path. This is the exact location of the Java installation package.
+
+        sudo update-java-alternatives -l
+
+Copy the java address and that's what we will include later under JAVA_HOME
+
         sudo vim /etc/systemd/system/tomcat.service
+        
 
 Add lines below:
 
@@ -154,10 +161,12 @@ Add lines below:
         WantedBy=multi-user.target
 
 ### Step 5
-Add permissions to the tomcat scripts
+Add permissions to the tomcat scripts and tomcat user 
         
         sudo chmod +x /opt/tomcat/bin/startup.sh
         sudo chmod +x /opt/tomcat/bin/shutdown.sh
+
+        sudo sh -c 'chmod +x /opt/tomcat/bin/*.sh'
 
 ⚠️ To make sure tomcat is running run this command
 
