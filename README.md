@@ -49,6 +49,7 @@ Connect via ssh putting the .pem file first and then ssh command as follows
         
         ssh -i /Users/rodo/Documents/menesesr1.pem linux1@123.123.123.123
 
+<br/><br/>
 
 ## Prep the Linux Server with all Apps needed
 All steps below are expected to be run in the linux server (RED HAT 8.7), once connected. Some commands might be slightly different if running a different linux distribution.
