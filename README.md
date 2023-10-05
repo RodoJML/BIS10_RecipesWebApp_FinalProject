@@ -115,10 +115,14 @@ Edit both of the above files one by one and add your IP address or range of IP. 
 
 
 ### Step 3
-Create an instance for your webapp, this is the environment where the app will run. 
+In your project code under "dist" folder you'll find a ".war" file. <br/>
+Move your project .war file to "/opt/tomcat/webapps" folder
 
-        mkdir /opt/tomcat/webapps/recipesApp
+📂 Use this command to transfer file from Local computer to Remote Linux
+            
+            scp -i /Users/rodo/Documents/Developer/Linux/LinuxOne/rmeneses1.pem /Users/rodo/Documents/Developer/Java/Projects/BIS10_FinalProject/dist/BIS10_FinalProject.war linux1@123.123.123.123:~/
 
+⚠️ Tomcat will automcatically detect the file and create the folder 
 
 ### Step 4
 Create a Tomcat "start" script 
@@ -263,10 +267,3 @@ Open your database
 
 Add all your tables
 
-# The final step 
-In your project code under "dist" folder you'll find a ".war" file. <br/>
-Move this file to your linux server and put into the Tomcat webapps respective folder. 
-
-📂 Use this command to transfer file from Local computer to Remote Linux
-            
-            scp -i /Users/rodo/Documents/Developer/Linux/LinuxOne/rmeneses1.pem /Users/rodo/Documents/Developer/Java/Projects/BIS10_FinalProject/dist/BIS10_FinalProject.war linux1@123.123.123.123:~/
