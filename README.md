@@ -82,4 +82,69 @@ Extract downloaded file and then move it to user created for sec reasons (Step 2
         sudo mv apache-tomcat-9.0.70/* /opt/tomcat/
 
 ### Step 6
+Set proper ownership permissions
+
+        sudo chown -R tomcat:tomcat /opt/tomcat/
+<br/> 
+
+# Setup Tomcat Server
+
+### Step 1
+Create and setup tomcat users.
+
+        vim /opt/tomcat/conf/tomcat-users.xml
+
+And paste the following lines between the <tomcat-users> </tomcat-users> tags.
+
+        <!-- user manager can access only manager section --> 
+        <role rolename="manager-gui"/> 
+        <user username="manager" password="_SECRET_PASSWORD_" roles="manager-gui" /> 
+
+        <!-- user admin can access manager and admin section both --> 
+        <role rolename="admin-gui" /> 
+        <user username="admin" password="_SECRET_PASSWORD_" roles="manager-gui,admin-gui" />
+
+
+### Step 2
+Enable Manager and Host Manager for remote IP access.
+
+        Manager: vim /opt/tomcat/webapps/manager/META-INF/context.xml
+        HostManager: vim /opt/tomcat/webapps/host-manager/META-INF/context.xml
         
+Edit both of the above files one by one and add your IP address or range of IP. You can also totally comment on these entries to allow all ip connections.
+
+
+### Step 3
+Create an instance for your webapp, this is the environment where the app will run. 
+
+        mkdir /opt/tomcat/webapps/recipesApp
+
+
+### Step 4
+Create a Tomcat "start" script 
+
+        sudo vim /etc/systemd/system/tomcat.service
+
+Add lines below:
+
+        [Unit]
+        Description=Tomcat 9
+        After=network.target 
+
+        [Service] 
+        Type=forking 
+        User=tomcat
+        Group=tomcat 
+        
+        Environment="JAVA_HOME=/usr/lib/jvm/jre"
+        Environment="JAVA_OPTS=-Djava.security.egd=file:///dev/urandom"
+        Environment="CATALINA_BASE=/opt/tomcat"
+        Environment="CATALINA_HOME=/opt/tomcat"
+        Environment="CATALINA_PID=/opt/tomcat/temp/tomcat.pid"
+        Environment="CATALINA_OPTS=-Xms512M -Xmx1024M -server -XX:+UseParallelGC"
+        
+        ExecStart=/opt/tomcat/bin/startup.sh
+        ExecStop=/opt/tomcat/bin/shutdown.sh
+        
+        [Install]
+        WantedBy=multi-user.target
