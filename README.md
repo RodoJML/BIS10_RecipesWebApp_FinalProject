@@ -122,7 +122,7 @@ Move your project .war file to "/opt/tomcat/webapps" folder
             
             scp -i /Users/rodo/Documents/Developer/Linux/LinuxOne/rmeneses1.pem /Users/rodo/Documents/Developer/Java/Projects/BIS10_FinalProject/dist/BIS10_FinalProject.war linux1@123.123.123.123:~/
 
-⚠️ Tomcat will automcatically detect the file and create the folder 
+⚠️ Tomcat will automcatically detect the file and create a new folder for the environment
 
 ### Step 4
 Create a Tomcat "start" script 
