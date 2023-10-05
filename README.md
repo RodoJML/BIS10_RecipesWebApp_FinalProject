@@ -166,7 +166,7 @@ Add between the server tags
         <Resource name="jdbc/recipesApp" auth="Container"
         type="javax.sql.DataSource"
         username="recipesApp"
-        password="mypassword"
+        password="recipespassword"
         driverClassName="com.mysql.jdbc.Driver"
         url="jdbc:mysql://localhost:3306/recipesApp"/>
     </Context>
@@ -205,3 +205,60 @@ Reload system daemon
         sudo systemctl daemon-reload
 
 
+### Step 9 
+Install the database
+
+        sudo dnf install mysql-server
+        systemctl start mysqld
+        systemctl status mysqld 
+
+## Step 10
+Run this command to reveal the default sql root password
+
+        sudo grep 'temporary password' /var/log/mysql/mysqld.log
+
+
+# Setup MySQL
+
+### Step 1 
+Acces the SQL command line.
+Default password is empty, just hit enter. 
+
+        mysql -uroot -p
+
+### Step 2
+Set a new password inmediatedly 
+        
+        ALTER USER 'root'@'localhost' IDENTIFIED BY 'myrjmlcommonpassword';
+
+### Step 3
+Now create a separate mysql user for your app (so we don’t use root)
+
+        CREATE USER 'recipesApp'@'localhost' IDENTIFIED BY 'recipespassword';
+
+### Step 4
+Create the schema for our app, this case is "BIS10_DB2"
+
+        CREATE DATABASE BIS10_DB2;	
+        SHOW DATABASES;
+
+## Step 5
+Give permissions to the new user 
+
+        GRANT ALL PRIVILEGES ON BIS10_DB2.* TO 'recipesApp'@'localhost';
+
+or 
+
+        GRANT ALL PRIVILEGES ON BIS10_DB2.* TO 'recipesApp'@'localhost' IDENTIFIED BY                'myrjmlcommonpassword';
+
+
+## Step 6
+Open your database 
+
+        USE BIS10_DB2 
+
+Add all your tables
+
+# The final step 
+In your project code under "dist" folder you'll find a ".war" file. <br/>
+Move this file 
