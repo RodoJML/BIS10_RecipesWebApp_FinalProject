@@ -51,24 +51,21 @@ user: rodojml@me.com password: '123'
 
 
 ## Prep the Linux Server with all Apps needed
-All steps below are expected to be run in the linux server, once connected. Some commands have different options in case you are running a different server than red hat.
+All steps below are expected to be run in the linux server (RED HAT 8.7), once connected. Some commands might be slightly different if running a different linux distribution.
 
 ### Step 1 
 Install Java command
         
         sudo dnf install java
-        sudo apt-get install java
 
 ### Step 2
 ⚠️ DO NOT run your server from the root user.<br/>For security reasons, create a separate user for Tomcat server. In this case user was name "tomcat" but you can name it different. 
 
         sudo useradd -m -d /opt/tomcat -U -s /bin/false tomcat
 
-
 ### Step 3
 Install wget if this is not preinstalled on the server. 
 
-        sudo dnf search wget
         sudo dnf install wget
         
         
