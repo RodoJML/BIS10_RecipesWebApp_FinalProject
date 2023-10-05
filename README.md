@@ -94,7 +94,7 @@ Create and setup tomcat users.
 
         vim /opt/tomcat/conf/tomcat-users.xml
 
-And paste the following lines between the <tomcat-users> </tomcat-users> tags.
+And paste the following lines between the '<tomcat-users> </tomcat-users>' tags.
 
         <!-- user manager can access only manager section --> 
         <role rolename="manager-gui"/> 
