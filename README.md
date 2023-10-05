@@ -148,3 +148,59 @@ Add lines below:
         
         [Install]
         WantedBy=multi-user.target
+
+### Step 5
+Add permissions to the tomcat scripts
+        
+        sudo chmod +x /opt/tomcat/bin/startup.sh
+        sudo chmod +x /opt/tomcat/bin/shutdown.sh
+
+### Step 6
+Edit the server.xml
+
+        vim /opt/tomcat/conf/server.xml
+
+Add
+
+    <Context path="/myapp" docBase="/var/lib/tomcat8/webapps/recipesApp">
+        <Resource name="jdbc/recipesApp" auth="Container"
+        type="javax.sql.DataSource"
+        username="recipesApp"
+        password="mypassword"
+        driverClassName="com.mysql.jdbc.Driver"
+        url="jdbc:mysql://localhost:3306/recipesApp"/>
+    </Context>
+
+
+# Going back to our server config... 
+
+### Step 7
+Configure firewall to allow incoming connections 
+
+    sudo systemctl status firewalld
+
+If not running, then run
+
+    sudo systemctl enable firewalld
+    sudo systemctl start firewalld
+
+Setup ports ("Success" should be printed for each command)
+
+    sudo firewall-cmd --zone=public --permanent --add-service=http
+    sudo firewall-cmd --zone=public --permanent --add-port 8080/tcp
+    sudo firewall-cmd --reload
+
+Check all ports enabled
+    
+    firewall-cmd --list-all
+    
+More info about this can be found here: 
+https://linuxconfig.org/redhat-8-open-and-close-ports
+
+### Step 8
+Reload system daemon
+
+        sudo firewall-cmd --reload
+        sudo systemctl daemon-reload
+
+
