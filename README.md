@@ -60,9 +60,7 @@ Install Java command
         sudo apt-get install java
 
 ### Step 2
-For security reasons, create a separate user for Tomcat server.<br/>
-⚠️ DO NOT run your server from the root user.
-In this case user was name "tomcat" but you can name it different. 
+⚠️ DO NOT run your server from the root user.<br/>For security reasons, create a separate user for Tomcat server. In this case user was name "tomcat" but you can name it different. 
 
         sudo useradd -m -d /opt/tomcat -U -s /bin/false tomcat
 
