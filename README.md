@@ -24,9 +24,9 @@ user: rodojml@me.com password: '123'
 ![BaseDatosUML](https://github.com/RodoJML/BIS10_RecipesWebApp_FinalProject/assets/63088555/69ede605-c74b-4a98-b2f1-96d485293dd7)
 
 
-## How I hosted the website on a Linux server
+# How I hosted the website on a Linux server
 
-# Creating the Linux Server 
+## Creating the Linux Server 
 
 ### Step 1
 
@@ -45,11 +45,11 @@ user: rodojml@me.com password: '123'
         On your computer, change permission of .pem file using the following command
         chmod 600 /Users/rodo/Documents/menesesr1.pem
 
-## Step 4 
+### Step 4 
         Connect via ssh putting the .pem file first and then ssh command as follows
         ssh -i /Users/rodo/Documents/menesesr1.pem linux1@123.123.123.123
 
 
-# Prep the Linux Server with all Apps needed
+## Prep the Linux Server with all Apps needed
 
         
