@@ -249,7 +249,7 @@ Give permissions to the new user
 
 or 
 
-        GRANT ALL PRIVILEGES ON BIS10_DB2.* TO 'recipesApp'@'localhost' IDENTIFIED BY                'myrjmlcommonpassword';
+        GRANT ALL PRIVILEGES ON BIS10_DB2.* TO 'recipesApp'@'localhost' IDENTIFIED BY 'myrjmlcommonpassword';
 
 
 ## Step 6
@@ -261,4 +261,8 @@ Add all your tables
 
 # The final step 
 In your project code under "dist" folder you'll find a ".war" file. <br/>
-Move this file 
+Move this file to your linux server 
+
+📂 Use this command to transfer file from Local computer to Remote Linux
+            
+            scp -i /Users/rodo/Documents/Developer/Linux/LinuxOne/rmeneses1.pem /Users/rodo/Documents/Developer/Java/Projects/BIS10_FinalProject/dist/BIS10_FinalProject.war linux1@123.123.123.123:~/
