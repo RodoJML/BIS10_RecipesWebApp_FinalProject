@@ -20,5 +20,5 @@ To use all functionalities please register a new user or use the following test 
 user: rodojml@me.com password: '123'
 
 
-## Database Entity Relation UML
+## Database Entity Relation UML.
 ![BaseDatosUML](https://github.com/RodoJML/BIS10_RecipesWebApp_FinalProject/assets/63088555/69ede605-c74b-4a98-b2f1-96d485293dd7)
