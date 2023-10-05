@@ -160,9 +160,9 @@ Edit the server.xml
 
         vim /opt/tomcat/conf/server.xml
 
-Add
+Add between the server tags
 
-    <Context path="/myapp" docBase="/var/lib/tomcat8/webapps/recipesApp">
+    <Context path="/recipesApp" docBase="/var/lib/tomcat8/webapps/recipesApp">
         <Resource name="jdbc/recipesApp" auth="Container"
         type="javax.sql.DataSource"
         username="recipesApp"
@@ -171,6 +171,7 @@ Add
         url="jdbc:mysql://localhost:3306/recipesApp"/>
     </Context>
 
+This will create a new context for your Java web application with the path “/myapp” and the docBase set to the directory you created earlier. It also includes a database resource that you can use to connect to a MySQL database.
 
 # Going back to our server config... 
 
