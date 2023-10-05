@@ -261,7 +261,7 @@ Add all your tables
 
 # The final step 
 In your project code under "dist" folder you'll find a ".war" file. <br/>
-Move this file to your linux server 
+Move this file to your linux server and put into the Tomcat webapps respective folder. 
 
 📂 Use this command to transfer file from Local computer to Remote Linux
             
