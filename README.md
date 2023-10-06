@@ -28,18 +28,18 @@ user: rodojml@me.com password: '123'
 
 ## Creating the Linux Server 
 
-###     Step 1
+### Step 1
 Activated a free trial account at 
         
         https://linuxone.cloud.marist.edu/#/
 
- ###     Step 2
+ ### Step 2
 Select Manage Instances >> Create one
 Create a SSH Key Pair (Downloads a file .pem extension)
 In the same setup wizard make sure you select the SSH Key just created.
 From the linuxone website get the IP Address to use it later to connect via SSH
 
-###     Step 3
+### Step 3
 On your computer, change permission of .pem file using the following command
         
         chmod 600 /Users/rodo/Documents/menesesr1.pem
@@ -51,7 +51,7 @@ Connect via ssh putting the .pem file first and then ssh command as follows
 
 <br/><br/>
 
-## Prep the Linux Server with all Apps needed
+# Prep the Linux Server with all Apps needed
 All steps below are expected to be run in the linux server (RED HAT 8.7), once connected. Some commands might be slightly different if running a different linux distribution.
 
 ### Step 1 
@@ -184,8 +184,7 @@ Some of the steps to setup tomcat from 1-6 were extracted from here:
 https://linuxconfig.org/redhat-8-open-and-close-ports <br/>
 https://tecadmin.net/install-tomcat-8-on-centos-8/
 
-
-### OPTIONAL ONLY IF PREVIOUS DONT WORK
+### _OPTIONAL ONLY IF PREVIOUS DONT WORK_
     Add permissions to the tomcat scripts and tomcat user 
         sudo chmod +x /opt/tomcat/bin/startup.sh
         sudo chmod +x /opt/tomcat/bin/shutdown.sh
@@ -210,7 +209,6 @@ Move your project .war file to "/opt/tomcat/webapps" folder
 
 
 # Going back to our server config... 
-
 ### Step 9 
 Install the database
 
@@ -222,6 +220,7 @@ Install the database
 Run this command to reveal the default sql root password
 
         sudo grep 'temporary password' /var/log/mysql/mysqld.log
+
 
 
 # Setup MySQL
