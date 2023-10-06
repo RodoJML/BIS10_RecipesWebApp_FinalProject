@@ -28,18 +28,18 @@ user: rodojml@me.com password: '123'
 
 ## Creating the Linux Server 
 
-### Step 1
+###     Step 1
 Activated a free trial account at 
         
         https://linuxone.cloud.marist.edu/#/
 
- ### Step 2
+ ###     Step 2
 Select Manage Instances >> Create one
 Create a SSH Key Pair (Downloads a file .pem extension)
 In the same setup wizard make sure you select the SSH Key just created.
 From the linuxone website get the IP Address to use it later to connect via SSH
 
-### Step 3
+###     Step 3
 On your computer, change permission of .pem file using the following command
         
         chmod 600 /Users/rodo/Documents/menesesr1.pem
