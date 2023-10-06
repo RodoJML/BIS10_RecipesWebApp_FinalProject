@@ -261,7 +261,7 @@ Open your database
         USE BIS10_DB2 
 
 ### Step 9
-Add all your tables to the database
+Add all your tables to the database, add them in the order listed in file
         
-        Use the createSQLScripts.sql file on this repo
+        Use the createTablesScript.sql file on this repo
 
