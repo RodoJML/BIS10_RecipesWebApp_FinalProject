@@ -26,6 +26,8 @@ user: rodojml@me.com password: '123'
 
 # How I hosted the website on a Linux server
 
+![linux_logo_icon_171222](https://github.com/RodoJML/BIS10_RecipesWebApp_FinalProject/assets/63088555/1365e919-ef2b-4ee6-85a8-ab1afe9ef511)
+
 ## Creating the Linux Server 
 
 ### Step 1
