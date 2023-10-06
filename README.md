@@ -186,66 +186,30 @@ https://tecadmin.net/install-tomcat-8-on-centos-8/
 
 
 ### OPTIONAL ONLY IF PREVIOUS DONT WORK
-Add permissions to the tomcat scripts and tomcat user 
-        
+    Add permissions to the tomcat scripts and tomcat user 
         sudo chmod +x /opt/tomcat/bin/startup.sh
         sudo chmod +x /opt/tomcat/bin/shutdown.sh
         sudo sh -c 'chmod +x /opt/tomcat/bin/*.sh'
 
-⚠️ To make sure tomcat is running run this command
-
+    ⚠️ To make sure tomcat is running run this command
         /opt/tomcat/bin/startup.sh
 
-Now to start or step the service you can use:
-        
+    Now to start or step the service you can use:
         sudo systemctl enable tomcat.service
         sudo systemctl start tomcat.service
 
-These two commands should run with no problems... 
-
-
-
-
-
-### Step Pending....
+### Step 7 - Final Tomcat Step 
 In your project code under "dist" folder you'll find a ".war" file. <br/>
 Move your project .war file to "/opt/tomcat/webapps" folder
 
-📂 Use this command to transfer file from Local computer to Remote Linux
+📂 Use this command to transfer .war file from Local computer to Remote Linux
             
             scp -i /Users/rodo/Documents/Developer/Linux/LinuxOne/rmeneses1.pem /Users/rodo/Documents/Developer/Java/Projects/BIS10_FinalProject/dist/BIS10_FinalProject.war linux1@123.123.123.123:~/
 
 ⚠️ Tomcat will automcatically detect the file and create a new folder for the environment
 
 
-### Step Pending....
-Edit the server.xml
-
-        vim /opt/tomcat/conf/server.xml
-
-Add between the server tags
-
-    <Context path="/recipesApp" docBase="/var/lib/tomcat8/webapps/recipesApp">
-        <Resource name="jdbc/recipesApp" auth="Container"
-        type="javax.sql.DataSource"
-        username="recipesApp"
-        password="recipespassword"
-        driverClassName="com.mysql.jdbc.Driver"
-        url="jdbc:mysql://localhost:3306/recipesApp"/>
-    </Context>
-
-This will create a new context for your Java web application with the path “/myapp” and the docBase set to the directory you created earlier. It also includes a database resource that you can use to connect to a MySQL database.
-
 # Going back to our server config... 
-
-
-
-### Step 8
-Reload system daemon
-
-        sudo firewall-cmd --reload
-        sudo systemctl daemon-reload
-
 
 ### Step 9 
 Install the database
