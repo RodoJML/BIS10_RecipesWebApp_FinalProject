@@ -59,6 +59,8 @@ Install Java command
         
         sudo dnf install java
 
+Make sure you see "Complete!" to ensure successfull installation. 
+
 ### Step 2
 ⚠️ DO NOT run your server from the root user.<br/>For security reasons, create a separate user for Tomcat server. In this case user was name "tomcat" but you can name it different. 
 
