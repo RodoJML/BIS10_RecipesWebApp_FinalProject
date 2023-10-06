@@ -263,5 +263,5 @@ Open your database
 ### Step 9
 Add all your tables to the database
         
-        Use the script o
+        Use the createSQLScripts.sql file on this repo
 
