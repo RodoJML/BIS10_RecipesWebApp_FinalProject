@@ -184,6 +184,16 @@ Some of the steps to setup tomcat from 1-6 were extracted from here:
 https://linuxconfig.org/redhat-8-open-and-close-ports <br/>
 https://tecadmin.net/install-tomcat-8-on-centos-8/
 
+### Step 7 - Final Tomcat Step 
+In your project code under "dist" folder you'll find a ".war" file. <br/>
+Move your project .war file to "/opt/tomcat/webapps" folder
+
+📂 Use this command to transfer .war file from Local computer to Remote Linux
+            
+            scp -i /Users/rodo/Documents/Developer/Linux/LinuxOne/rmeneses1.pem /Users/rodo/Documents/Developer/Java/Projects/BIS10_FinalProject/dist/BIS10_FinalProject.war linux1@123.123.123.123:~/
+
+⚠️ Tomcat will automcatically detect the file and create a new folder for the environment
+
 ### _OPTIONAL ONLY IF PREVIOUS DONT WORK_
     Add permissions to the tomcat scripts and tomcat user 
         sudo chmod +x /opt/tomcat/bin/startup.sh
@@ -196,16 +206,6 @@ https://tecadmin.net/install-tomcat-8-on-centos-8/
     Now to start or step the service you can use:
         sudo systemctl enable tomcat.service
         sudo systemctl start tomcat.service
-
-### Step 7 - Final Tomcat Step 
-In your project code under "dist" folder you'll find a ".war" file. <br/>
-Move your project .war file to "/opt/tomcat/webapps" folder
-
-📂 Use this command to transfer .war file from Local computer to Remote Linux
-            
-            scp -i /Users/rodo/Documents/Developer/Linux/LinuxOne/rmeneses1.pem /Users/rodo/Documents/Developer/Java/Projects/BIS10_FinalProject/dist/BIS10_FinalProject.war linux1@123.123.123.123:~/
-
-⚠️ Tomcat will automcatically detect the file and create a new folder for the environment
 
 
 # Going back to our server config... 
