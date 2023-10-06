@@ -263,5 +263,5 @@ Open your database
 ### Step 9
 Add all your tables to the database, add them in the order listed in file
         
-        Use the createTablesScript.sql file on this repo
+        Use the createSQLtables.sql file on this repo
 
