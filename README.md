@@ -222,34 +222,44 @@ Run this command to reveal the default sql root password
 
         sudo grep 'temporary password' /var/log/mysql/mysqld.log
 
-
 <br/><br/>
 
 # Setup MySQL
+### Step 1
+Install the database
 
-### Step 1 
+        sudo dnf install mysql-server
+        systemctl start mysqld
+        systemctl status mysqld
+
+### Step 2
+Run this command to reveal the default sql root password
+
+        sudo grep 'temporary password' /var/log/mysql/mysqld.log
+        
+### Step 3
 Acces the SQL command line.
 Default password is empty, just hit enter. 
 
         mysql -uroot -p
 
-### Step 2
+### Step 4
 Set a new password inmediatedly 
         
         ALTER USER 'root'@'localhost' IDENTIFIED BY 'myrjmlcommonpassword';
 
-### Step 3
+### Step 5
 Now create a separate mysql user for your app (so we don’t use root)
 
         CREATE USER 'recipesApp'@'localhost' IDENTIFIED BY 'recipespassword';
 
-### Step 4
+### Step 6
 Create the schema for our app, this case is "BIS10_DB2"
 
         CREATE DATABASE BIS10_DB2;	
         SHOW DATABASES;
 
-## Step 5
+## Step 7
 Give permissions to the new user 
 
         GRANT ALL PRIVILEGES ON BIS10_DB2.* TO 'recipesApp'@'localhost';
@@ -259,7 +269,7 @@ or
         GRANT ALL PRIVILEGES ON BIS10_DB2.* TO 'recipesApp'@'localhost' IDENTIFIED BY 'myrjmlcommonpassword';
 
 
-## Step 6
+## Step 8
 Open your database 
 
         USE BIS10_DB2 
