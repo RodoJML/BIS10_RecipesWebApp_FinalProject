@@ -90,54 +90,34 @@ Set proper ownership permissions
 <br/> 
 
 # Setup Tomcat Server
-
 ### Step 1
+Enable Manager and Host Manager for remote IP access.
+
+        vim /opt/tomcat/webapps/manager/META-INF/context.xml
+        vim /opt/tomcat/webapps/host-manager/META-INF/context.xml
+
+<img width="682" alt="image" src="https://github.com/RodoJML/BIS10_RecipesWebApp_FinalProject/assets/63088555/38ff7fbe-55ea-4c2b-b422-dd77b2dda7f3">
+
+Edit both of the above files one by one and add your IP address or range of IP.
+
+### Step 2
 Create and setup tomcat users.
 
         vim /opt/tomcat/conf/tomcat-users.xml
 
 And paste the following lines between the '<tomcat-users>' tags.
 
-        <!-- user manager can access only manager section --> 
-        <role rolename="manager-gui"/> 
-        <user username="manager" password="_SECRET_PASSWORD_" roles="manager-gui" /> 
-
-        <!-- user admin can access manager and admin section both --> 
-        <role rolename="admin-gui" /> 
+        <!-- user manager can access only manager section -->
+        <role rolename="manager-gui" />
+        <user username="manager" password="_SECRET_PASSWORD_" roles="manager-gui" />
+        
+        <!-- user admin can access manager and admin section both -->
+        <role rolename="admin-gui" />
         <user username="admin" password="_SECRET_PASSWORD_" roles="manager-gui,admin-gui" />
 
 
-### Step 2
-Enable Manager and Host Manager for remote IP access.
-
-        Manager: vim /opt/tomcat/webapps/manager/META-INF/context.xml
-        HostManager: vim /opt/tomcat/webapps/host-manager/META-INF/context.xml
-        
-Edit both of the above files one by one and add your IP address or range of IP. You can also totally comment on these entries to allow all ip connections.
-
-
 ### Step 3
-In your project code under "dist" folder you'll find a ".war" file. <br/>
-Move your project .war file to "/opt/tomcat/webapps" folder
-
-📂 Use this command to transfer file from Local computer to Remote Linux
-            
-            scp -i /Users/rodo/Documents/Developer/Linux/LinuxOne/rmeneses1.pem /Users/rodo/Documents/Developer/Java/Projects/BIS10_FinalProject/dist/BIS10_FinalProject.war linux1@123.123.123.123:~/
-
-⚠️ Tomcat will automcatically detect the file and create a new folder for the environment
-
-### Step 4
 Create a Tomcat "start" script 
-
-To configure the file, you first need to find the JAVA_HOME path. This is the exact location of the Java installation package.
-
-        sudo update-java-alternatives -l
-
-Copy the java address and that's what we will include later under JAVA_HOME
-
-        sudo vim /etc/systemd/system/tomcat.service
-        
-
 Add lines below:
 
         [Unit]
@@ -162,12 +142,54 @@ Add lines below:
         [Install]
         WantedBy=multi-user.target
 
+
+### Step 4
+Reload daemon
+
+        sudo systemctl daemon-reload
+
+
 ### Step 5
+Enable and start Tomcat service
+
+        sudo systemctl enable tomcat.service
+        sudo systemctl start tomcat.service
+        
+
+### Step 6
+Configure firewall to allow incoming connections 
+
+    sudo systemctl status firewalld
+
+If not running, then run
+
+    sudo systemctl enable firewalld
+    sudo systemctl start firewalld
+
+Setup ports ("Success" should be printed for each command)
+
+    sudo firewall-cmd --zone=public --permanent --add-service=http
+    sudo firewall-cmd --zone=public --permanent --add-port 8080/tcp
+    sudo firewall-cmd --reload
+    sudo systemctl daemon-reload
+
+Check all ports enabled
+    
+    firewall-cmd --list-all
+
+✅ At this point TOMCAT should work if accessed remotely 123.123.123.123:8080
+<img width="1029" alt="image" src="https://github.com/RodoJML/BIS10_RecipesWebApp_FinalProject/assets/63088555/5591bcb9-fa06-43fd-b1fe-8216e6ba1037">
+
+Some of the steps to setup tomcat from 1-6 were extracted from here: 
+https://linuxconfig.org/redhat-8-open-and-close-ports
+https://tecadmin.net/install-tomcat-8-on-centos-8/
+
+
+### OPTIONAL ONLY IF PREVIOUS DONT WORK
 Add permissions to the tomcat scripts and tomcat user 
         
         sudo chmod +x /opt/tomcat/bin/startup.sh
         sudo chmod +x /opt/tomcat/bin/shutdown.sh
-
         sudo sh -c 'chmod +x /opt/tomcat/bin/*.sh'
 
 ⚠️ To make sure tomcat is running run this command
@@ -182,7 +204,21 @@ Now to start or step the service you can use:
 These two commands should run with no problems... 
 
 
-### Step 6
+
+
+
+### Step Pending....
+In your project code under "dist" folder you'll find a ".war" file. <br/>
+Move your project .war file to "/opt/tomcat/webapps" folder
+
+📂 Use this command to transfer file from Local computer to Remote Linux
+            
+            scp -i /Users/rodo/Documents/Developer/Linux/LinuxOne/rmeneses1.pem /Users/rodo/Documents/Developer/Java/Projects/BIS10_FinalProject/dist/BIS10_FinalProject.war linux1@123.123.123.123:~/
+
+⚠️ Tomcat will automcatically detect the file and create a new folder for the environment
+
+
+### Step Pending....
 Edit the server.xml
 
         vim /opt/tomcat/conf/server.xml
@@ -202,28 +238,7 @@ This will create a new context for your Java web application with the path “/
 
 # Going back to our server config... 
 
-### Step 7
-Configure firewall to allow incoming connections 
 
-    sudo systemctl status firewalld
-
-If not running, then run
-
-    sudo systemctl enable firewalld
-    sudo systemctl start firewalld
-
-Setup ports ("Success" should be printed for each command)
-
-    sudo firewall-cmd --zone=public --permanent --add-service=http
-    sudo firewall-cmd --zone=public --permanent --add-port 8080/tcp
-    sudo firewall-cmd --reload
-
-Check all ports enabled
-    
-    firewall-cmd --list-all
-    
-More info about this can be found here: 
-https://linuxconfig.org/redhat-8-open-and-close-ports
 
 ### Step 8
 Reload system daemon
