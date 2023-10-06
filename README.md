@@ -209,20 +209,6 @@ Move your project .war file to "/opt/tomcat/webapps" folder
 
 <br/><br/>
 
-# Going back to our server config... 
-### Step 9 
-Install the database
-
-        sudo dnf install mysql-server
-        systemctl start mysqld
-        systemctl status mysqld 
-
-## Step 10
-Run this command to reveal the default sql root password
-
-        sudo grep 'temporary password' /var/log/mysql/mysqld.log
-
-<br/><br/>
 
 # Setup MySQL
 ### Step 1
@@ -259,7 +245,7 @@ Create the schema for our app, this case is "BIS10_DB2"
         CREATE DATABASE BIS10_DB2;	
         SHOW DATABASES;
 
-## Step 7
+### Step 7
 Give permissions to the new user 
 
         GRANT ALL PRIVILEGES ON BIS10_DB2.* TO 'recipesApp'@'localhost';
@@ -269,7 +255,7 @@ or
         GRANT ALL PRIVILEGES ON BIS10_DB2.* TO 'recipesApp'@'localhost' IDENTIFIED BY 'myrjmlcommonpassword';
 
 
-## Step 8
+### Step 8
 Open your database 
 
         USE BIS10_DB2 
