@@ -260,5 +260,8 @@ Open your database
 
         USE BIS10_DB2 
 
-Add all your tables
+### Step 9
+Add all your tables to the database
+        
+        Use the script o
 
