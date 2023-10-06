@@ -182,8 +182,10 @@ Check all ports enabled
 ✅ At this point TOMCAT should work if accessed remotely 123.123.123.123:8080
 <img width="1029" alt="image" src="https://github.com/RodoJML/BIS10_RecipesWebApp_FinalProject/assets/63088555/5591bcb9-fa06-43fd-b1fe-8216e6ba1037">
 
-Some of the steps to setup tomcat from 1-6 were extracted from here: 
-https://linuxconfig.org/redhat-8-open-and-close-ports <br/>
+Some of the steps (not all) to setup tomcat were extracted from here:
+<br/>
+https://linuxconfig.org/redhat-8-open-and-close-ports 
+<br/>
 https://tecadmin.net/install-tomcat-8-on-centos-8/
 
 ### Step 7 - Final Tomcat Step 
