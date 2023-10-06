@@ -87,7 +87,7 @@ Extract downloaded file and then move it to user created for sec reasons (Step 2
 Set proper ownership permissions
 
         sudo chown -R tomcat:tomcat /opt/tomcat/
-<br/> 
+<br/><br/>
 
 # Setup Tomcat Server
 ### Step 1
@@ -207,6 +207,7 @@ Move your project .war file to "/opt/tomcat/webapps" folder
         sudo systemctl enable tomcat.service
         sudo systemctl start tomcat.service
 
+<br/><br/>
 
 # Going back to our server config... 
 ### Step 9 
@@ -222,6 +223,7 @@ Run this command to reveal the default sql root password
         sudo grep 'temporary password' /var/log/mysql/mysqld.log
 
 
+<br/><br/>
 
 # Setup MySQL
 
