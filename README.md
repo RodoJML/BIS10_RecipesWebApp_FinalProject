@@ -34,6 +34,7 @@ user: rodojml@me.com password: '123'
 Activated a free trial account at 
         
         https://linuxone.cloud.marist.edu/#/
+        Note to self: I used my newpaltz email and password for linuxone
 
  ### Step 2
 Select Manage Instances >> Create one
